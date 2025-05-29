@@ -1,16 +1,15 @@
 "use client"
 
 import { User, HelpCircle, CircleCheck, ArrowRight, MoveUpRight } from "lucide-react";
-import { useEffect, useState } from 'react';
 
 interface SidebarProps {
     aberta: boolean;
+    isMobile: boolean;
+    activeOption: string;
+    setActiveOption: (option: string) => void
 }
 
-function Sidebar({ aberta }: SidebarProps) {
-
-    const [activeOption, setActiveOption] = useState<string>('dashboard');
-    const [isMobile, setIsMobile] = useState<boolean>(false);
+function Sidebar({ aberta, isMobile, activeOption, setActiveOption }: SidebarProps) {
 
     const tamanhoIcone = 20;
 
@@ -37,20 +36,9 @@ function Sidebar({ aberta }: SidebarProps) {
         },
     ]
 
-    useEffect(() => {
-        const verificarMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        verificarMobile();
-
-        window.addEventListener('resize', verificarMobile);
-        return () => window.removeEventListener('resize', verificarMobile);
-    }, []);
-
     return (
-        <aside className={`flex flex-col h-screen ${!aberta && !isMobile ? 'w-24' : 'w-1/6'}
-                        w-1/6 bg-[#0b2430] text-white transition-all duration-500 ease-in-out`}>
+        <aside className={`flex flex-col ${!aberta && !isMobile ? 'w-24' : 'w-1/6'}
+                         bg-[#0b2430] text-white transition-all duration-500 ease-in-out h-screen min-h-screen`}>
             <nav className="p-4 space-y-4">
                 {optionsNav.map((option, index) => (
                     <a
@@ -65,7 +53,6 @@ function Sidebar({ aberta }: SidebarProps) {
                     >
                         {option.icon}
                         {!isMobile && aberta && <span>{option.title}</span>}
-
                     </a>
                 ))}
             </nav>
