@@ -6,7 +6,9 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LegendProps,
 } from 'recharts';
+import { Payload } from 'recharts/types/component/DefaultLegendContent';
 
 interface PercentualProps {
   isMobile: boolean;
@@ -21,12 +23,10 @@ const data = [
 
 const cores = ['#ffa528', '#1e86dc', '#4bb9b9', '#fd6f37'];
 
-const LegendaPersonalizada = (props: any) => {
-  const { payload } = props;
-
+const LegendaPersonalizada = ({ payload }: LegendProps) => {
   return (
     <ul className="flex flex-wrap max-w-fit relative gap-3 bottom-7 left-10">
-      {payload.map((entry: any, index: number) => (
+      {payload?.map((entry: Payload, index: number) => (
         <li key={`item-${index}`} className="flex items-center mx-4">
           <div
             className="w-2 h-2 rounded-full mx-4"
